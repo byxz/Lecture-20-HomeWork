@@ -26,9 +26,9 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     @IBOutlet private var label: UILabel!
     @IBOutlet private var button: UIButton!
     @IBOutlet private var progressView: UIProgressView!
-    @IBOutlet var playerView: AVPlayer?
+    @IBOutlet var playerView: PlayerView?
  
-    //private var player: AVPlayer?
+    private var player: AVPlayer?
     private var playerObservation: NSKeyValueObservation?
     private var file: URL?
     private lazy var worker: MediaWorker = {
@@ -66,12 +66,12 @@ class ViewController: UIViewController, MediaWorkerDelegate {
             return
         }
         
-        if let time = playerView?.currentTime(), let duration = playerView?.currentItem?.duration {
+        if let time = player?.currentTime(), let duration = player?.currentItem?.duration {
             progressView.progress = Float(CMTimeGetSeconds(time) / CMTimeGetSeconds(duration))
         }
         
-        if playerView?.isPlaying == true { playerView?.pause() }
-        else { playerView?.play() }
+        if player?.isPlaying == true { player?.pause() }
+        else { player?.play() }
     }
     
     
@@ -97,7 +97,7 @@ class ViewController: UIViewController, MediaWorkerDelegate {
         
         label.text = file?.lastPathComponent
         
-        if playerView?.rate == 0 {
+        if player?.rate == 0 {
             progressView.isHidden = false
             button.setTitle("Play", for: .normal)
             return
@@ -110,7 +110,6 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     private func load() {
         let path = "https://dl.dropbox.com/s/ksncs5whcayfd5a/video.mp4"
         label.text = URL(string: path)?.lastPathComponent
-        
         progressView.progress = 0
         worker.loadFile(path: path)
         checkState()
@@ -118,15 +117,25 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     
     private func play(url: URL) {
         file = url
-        playerView?.pause()
-        playerView = AVPlayer(url: url)
-        playerObservation = playerView?.observe(\.rate) { [weak self] _, _ in self?.checkState() }
-        playerView?.play()
+        player?.pause()
+        player = AVPlayer(url: url)
+        playerObservation = player?.observe(\.rate) { [weak self] _, _ in self?.checkState() }
+        player?.play()
+        
+        
+        playerView?.player?.pause()
+        playerView?.player = AVPlayer(url: url)
+        playerObservation = playerView?.player?.observe(\.rate) { [weak self] _, _ in self?.checkState() }
+        playerView?.player?.play()
+        
     }
+    
+    
+    
 
     private func addPlayerProgressObserver() {
-        playerView?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: nil) { [weak self] _ in
-            if let time = self?.playerView?.currentTime(), let duration = self?.playerView?.currentItem?.duration {
+        player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: nil) { [weak self] _ in
+            if let time = self?.player?.currentTime(), let duration = self?.player?.currentItem?.duration {
                 self?.progressView.progress = Float(CMTimeGetSeconds(time) / CMTimeGetSeconds(duration))
             }
         }

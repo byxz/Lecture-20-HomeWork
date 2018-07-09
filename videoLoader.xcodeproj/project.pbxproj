@@ -16,6 +16,7 @@
 		047F8CB620F0F8B6009C8E3C /* MediaWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F8CB520F0F8B6009C8E3C /* MediaWorker.swift */; };
 		047F8CB820F0F8DD009C8E3C /* ResumeDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F8CB720F0F8DD009C8E3C /* ResumeDataStorage.swift */; };
 		047F8CBA20F101E3009C8E3C /* AVPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047F8CB920F101E3009C8E3C /* AVPlayerExtension.swift */; };
+		04D2AB9320F31DD20051E896 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2AB9220F31DD20051E896 /* PlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		047F8CB520F0F8B6009C8E3C /* MediaWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWorker.swift; sourceTree = "<group>"; };
 		047F8CB720F0F8DD009C8E3C /* ResumeDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeDataStorage.swift; sourceTree = "<group>"; };
 		047F8CB920F101E3009C8E3C /* AVPlayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerExtension.swift; sourceTree = "<group>"; };
+		04D2AB9220F31DD20051E896 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				047F8CA120F0E289009C8E3C /* AppDelegate.swift */,
 				047F8CA320F0E289009C8E3C /* ViewController.swift */,
+				04D2AB9220F31DD20051E896 /* PlayerView.swift */,
 				047F8CB520F0F8B6009C8E3C /* MediaWorker.swift */,
 				047F8CB720F0F8DD009C8E3C /* ResumeDataStorage.swift */,
 				047F8CB320F0E88C009C8E3C /* CustomeCell.swift */,
@@ -149,6 +152,7 @@
 			files = (
 				047F8CB420F0E88C009C8E3C /* CustomeCell.swift in Sources */,
 				047F8CBA20F101E3009C8E3C /* AVPlayerExtension.swift in Sources */,
+				04D2AB9320F31DD20051E896 /* PlayerView.swift in Sources */,
 				047F8CA420F0E289009C8E3C /* ViewController.swift in Sources */,
 				047F8CB820F0F8DD009C8E3C /* ResumeDataStorage.swift in Sources */,
 				047F8CB620F0F8B6009C8E3C /* MediaWorker.swift in Sources */,
