@@ -21,7 +21,8 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     
     var countOfCellDownload: [Int] = []
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var progressOfDownload: UILabel!
     
     @IBOutlet private var label: UILabel!
     @IBOutlet private var button: UIButton!
@@ -40,6 +41,7 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = ""
+        progressOfDownload.text = ""
         checkState()
     }
 
@@ -68,6 +70,7 @@ class ViewController: UIViewController, MediaWorkerDelegate {
         
         if let time = player?.currentTime(), let duration = player?.currentItem?.duration {
             progressView.progress = Float(CMTimeGetSeconds(time) / CMTimeGetSeconds(duration))
+            
         }
         
         if player?.isPlaying == true { player?.pause() }
@@ -96,6 +99,7 @@ class ViewController: UIViewController, MediaWorkerDelegate {
         }
         
         label.text = file?.lastPathComponent
+        progressOfDownload.text = ""
         
         if player?.rate == 0 {
             progressView.isHidden = false
@@ -110,6 +114,7 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     private func load() {
         let path = "https://dl.dropbox.com/s/ksncs5whcayfd5a/video.mp4"
         label.text = URL(string: path)?.lastPathComponent
+        progressOfDownload.text = ""
         progressView.progress = 0
         worker.loadFile(path: path)
         checkState()
@@ -123,6 +128,7 @@ class ViewController: UIViewController, MediaWorkerDelegate {
         playerLayer.frame = (playerView?.frame)!
         view.layer.addSublayer(playerLayer)
         playerObservation = player?.observe(\.rate) { [weak self] _, _ in self?.checkState() }
+        addPlayerProgressObserver()
         player?.play()
     }
     
@@ -200,8 +206,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.numberOfDownload.text = "Загрузка #\(countOfCellDownload[indexPath.row])"
 
-        
-        
         return cell
     }
     

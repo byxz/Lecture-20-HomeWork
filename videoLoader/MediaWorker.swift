@@ -84,5 +84,6 @@ final class MediaWorker: NSObject, URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         let progress: Float = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
         delegate?.mediaWorker(self, didUpdateProgress: progress)
-    }
+            print("Progress \(Float(totalBytesWritten)*0.000001)  из \(Float(totalBytesExpectedToWrite)*0.000001)")
+        }
 }
