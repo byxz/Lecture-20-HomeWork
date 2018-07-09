@@ -119,20 +119,13 @@ class ViewController: UIViewController, MediaWorkerDelegate {
         file = url
         player?.pause()
         player = AVPlayer(url: url)
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = (playerView?.frame)!
+        view.layer.addSublayer(playerLayer)
         playerObservation = player?.observe(\.rate) { [weak self] _, _ in self?.checkState() }
         player?.play()
-        
-        
-        playerView?.player?.pause()
-        playerView?.player = AVPlayer(url: url)
-        playerObservation = playerView?.player?.observe(\.rate) { [weak self] _, _ in self?.checkState() }
-        playerView?.player?.play()
-        
     }
     
-    
-    
-
     private func addPlayerProgressObserver() {
         player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: nil) { [weak self] _ in
             if let time = self?.player?.currentTime(), let duration = self?.player?.currentItem?.duration {
@@ -177,7 +170,6 @@ class ViewController: UIViewController, MediaWorkerDelegate {
         do {
             try fileManager.copyItem(at: url, to: destinationURL)
             play(url: destinationURL)
-            //playVideo(url: destinationURL)
         } catch let error {
             print("Could not copy file to disk: \(error.localizedDescription)")
         }
@@ -207,6 +199,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomeCell
         
         cell.numberOfDownload.text = "Загрузка #\(countOfCellDownload[indexPath.row])"
+
         
         
         return cell

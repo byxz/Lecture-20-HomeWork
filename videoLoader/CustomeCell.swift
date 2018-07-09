@@ -12,12 +12,16 @@ import UIKit
 class CustomeCell: UITableViewCell {
    
     
+    @IBOutlet var playerView: PlayerView!
     @IBOutlet var numberOfDownload: UILabel!
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var labelOfProgress: UILabel!
     
     @IBAction func onButton(_ sender: Any) {
-        print("hello world")
+       
+        
+        
+        
     }
     
     
