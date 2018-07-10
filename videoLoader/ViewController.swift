@@ -22,7 +22,7 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     var countOfCellDownload: [Int] = []
     
     @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var progressOfDownload: UILabel!
+    @IBOutlet var progressOfDownload: UILabel!
     
     @IBOutlet private var label: UILabel!
     @IBOutlet private var button: UIButton!
