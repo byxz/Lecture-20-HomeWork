@@ -186,11 +186,15 @@ class ViewController: UIViewController, MediaWorkerDelegate {
     func mediaWorker(_ worker: MediaWorker, didUpdateProgress progress: Float) {
         progressView.progress = progress
     }
-    
+    func mediaWorker(_ worker: MediaWorker, load label: Float) {
+        progressOfDownload.text = "\(label)"
+    }
     func mediaWorker(_ worker: MediaWorker, failWith error: Error) {
         show(error: error.localizedDescription)
         checkState()
     }
+
+
 }
 
 
