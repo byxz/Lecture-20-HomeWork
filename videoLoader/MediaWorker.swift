@@ -11,7 +11,7 @@ import Foundation
 protocol MediaWorkerDelegate: class {
     func mediaWorker(_ worker: MediaWorker, didFinishLoadingTo url: URL, source: URL)
     func mediaWorker(_ worker: MediaWorker, didUpdateProgress progress: Float)
-    func mediaWorker(_ worker: MediaWorker, load label: Float)
+    func mediaWorker(_ worker: MediaWorker, load label: String)
     func mediaWorker(_ worker: MediaWorker, failWith error: Error)
 }
 
@@ -85,9 +85,7 @@ final class MediaWorker: NSObject, URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         let progress: Float = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
         delegate?.mediaWorker(self, didUpdateProgress: progress)
-        
-        let totalBytesWrittenLabel  = Float(totalBytesWritten / (1024 * 1024))
-        delegate?.mediaWorker(self, load: totalBytesWrittenLabel)
-            print("Progress \(totalBytesWritten / (1024*1024)) из \(totalBytesExpectedToWrite / (1024*1024))")
+        let progressDownloadLabel = "\(Float(totalBytesWritten / (1024 * 1024))) MB " + "/" + " \(Float(totalBytesExpectedToWrite / (1024 * 1024))) MB"
+        delegate?.mediaWorker(self, load: progressDownloadLabel)
         }
 }
